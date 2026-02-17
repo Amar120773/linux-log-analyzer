@@ -1,0 +1,16 @@
+project:
+  name: Linux Log Analyser
+  version: 1.0
+
+input:
+  log_path: sample_logs/auth.log
+
+processing:
+  time_window_minutes: 10
+
+anomaly_detection:
+  method: zscore
+  threshold: 3.0
+
+logging:
+  level: INFO

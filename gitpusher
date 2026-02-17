@@ -1,0 +1,15 @@
+Script started on 2026-02-17 05:53:24+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="76" LINES="43"]
+[?2004h]0;amarrr@DESKTOP-AI2F30G: /mnt/c/Users/Sahana/Desktop/linux-log-analyser[01;32mamarrr@DESKTOP-AI2F30G[00m:[01;34m/mnt/c/Users/Sahana/Desktop/linux-log-analyser[00m$ git i nit
+[?2004l[33mhint: Using 'master' as the name for the initial branch. This default branch name[m
+[33mhint: is subject to change. To configure the initial branch name to use in all[m
+[33mhint: of your new repositories, which will suppress this warning, call:[m
+[33mhint: [m
+[33mhint: 	git config --global init.defaultBranch <name>[m
+[33mhint: [m
+[33mhint: Names commonly chosen instead of 'master' are 'main', 'trunk' and[m
+[33mhint: 'development'. The just-created branch can be renamed via this command:[m
+[33mhint: [m
+[33mhint: 	git branch -m <name>[m
+Initialized empty Git repository in /mnt/c/Users/Sahana/Desktop/linux-log-analyser/.git/
+[?2004h]0;amarrr@DESKTOP-AI2F30G: /mnt/c/Users/Sahana/Desktop/linux-log-analyser[01;32mamarrr@DESKTOP-AI2F30G[00m:[01;34m/mnt/c/Users/Sahana/Desktop/linux-log-analyser[00m$ nano  .gitignore
+[?2004l[?2004h[?1049h[22;0;0t[1;43r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[41;33H(B[0;7m[ New File ](B[m[H(B[0;7m  GNU nano 7.2                     .gitignore                               [1;75H(B[m[42d(B[0;7m^G(B[m Help[42;16H(B[0;7m^O(B[m Write Out   (B[0;7m^W(B[m Where Is    (B[0;7m^K(B[m Cut[42;61H(B[0;7m^T(B[m Execute[43d(B[0;7m^X(B[m Exit[43;16H(B[0;7m^R(B[m Read File   (B[0;7m^\(B[m Replace     (B[0;7m^U(B[m Paste[61G(B[0;7m^J(B[m Justify[2d[?12l[?25h[?25l[41d[K[1;47H(B[0;7m*[75G(B[m[2dvenv/[3d__pycache__/[4d*.pyc[5d*.csv[6d*.log[7d[?12l[?25h[?25l[42;16H    (B[0;7mM-D(B[m DOS Format     (B[0;7mM-A(B[m Append   [58G(B[0;7mM-B(B[m Backup File[43;2H(B[0;7mC(B[m Cancel[16G    (B[0;7mM-M(B[m Mac Format     (B[0;7mM-P(B[m Prepend        (B[0;7m^T(B[m Browse[K[41d(B[0;7mFile Name to Write: .gitignore                                              [41;31H(B[m[?12l[?25h[?25l[1K (B[0;7m[ Writing... ](B[m[K[1;47H(B[0;7m [75G(B[m[41;30H(B[0;7m[ Wrote 5 lines ](B[m[42;16H(B[0;7m^O(B[m Write Out   (B[0;7m^W(B[m Where Is    (B[0;7m^K(B[m Cut[58G   (B[0;7m^T(B[m Execute[K[43;2H(B[0;7mX(B[m Exit  [16G(B[0;7m^R(B[m Read File   (B[0;7m^\(B[m Replace     (B[0;7m^U(B[m Paste       (B[0;7m^J(B[m Justify[?12l[?25h[7d[?25l[41d[J[43d[?12l[?25h[43;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;amarrr@DESKTOP-AI2F30G: /mnt/c/Users/Sahana/Desktop/linux-log-analyser[01;32mamarrr@DESKTOP-AI2F30G[00m:[01;34m/mnt/c/Users/Sahana/Desktop/linux-log-analyser[00m$ [7mgit a[27m[7md[27m[7md .[27m[A]0;amarrr@DESKTOP-AI2F30G: /mnt/c/Users/Sahana/Desktop/linux-log-analyser[01;32mamarrr@DESKTOP-AI2F30G[00m:[01;34m/mnt/c/Users/Sahana/Desktop/linux-log-analyser
