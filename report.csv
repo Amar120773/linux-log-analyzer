@@ -1,0 +1,2 @@
+window_start,failed_login_count,unique_ip_count,unique_user_count,high_failed_logins,high_unique_ips,zscore_failed,statistical_spike,is_anomaly
+2026-01-30 02:10:00,2,2,3,False,False,0,False,False
