@@ -1,242 +1,0 @@
-Script started on 2026-02-17 05:40:51+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="76" LINES="43"]
-[?2004h]0;amarrr@DESKTOP-AI2F30G: /mnt/c/Users/Sahana/Desktop/linux-log-analyser[01;32mamarrr@DESKTOP-AI2F30G[00m:[01;34m/mnt/c/Users/Sahana/Desktop/linux-log-analyser[00m$ pytho n3 -m analyser
-[?2004lTraceback (most recent call last):
-  File "<frozen runpy>", line 189, in _run_module_as_main
-  File "<frozen runpy>", line 159, in _get_module_details
-  File "<frozen importlib._bootstrap_external>", line 1129, in get_code
-  File "<frozen importlib._bootstrap_external>", line 1059, in source_to_code
-  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
-  File "/mnt/c/Users/Sahana/Desktop/linux-log-analyser/analyser.py", line 74
-    """    args = parse_arguments()
-           ^^^^
-SyntaxError: invalid syntax
-[?2004h]0;amarrr@DESKTOP-AI2F30G: /mnt/c/Users/Sahana/Desktop/linux-log-analyser[01;32mamarrr@DESKTOP-AI2F30G[00m:[01;34m/mnt/c/Users/Sahana/Desktop/linux-log-analyser[00m$ nana[Ko  aba[K[Knalyser.pu[Ky
-[?2004l[?2004h[?1049h[22;0;0t[1;43r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[41;32H(B[0;7m[ Reading... ](B[m[41;16H(B[0;7m[ Read 139 lines (Converted from DOS format) ](B[m[H(B[0;7m  GNU nano 7.2                     analyser.py                              [1;75H(B[m[42d(B[0;7m^G(B[m Help[42;16H(B[0;7m^O(B[m Write Out   (B[0;7m^W(B[m Where Is    (B[0;7m^K(B[m Cut[42;61H(B[0;7m^T(B[m Execute[43d(B[0;7m^X(B[m Exit[43;16H(B[0;7m^R(B[m Read File   (B[0;7m^\(B[m Replace     (B[0;7m^U(B[m Paste[61G(B[0;7m^J(B[m Justify[2d(B[0;1m[31m#!/usr/bin/env python3[3d[32m"""[4dLinux Log Analyser[5d------------------[6dEntry point for the Linux log analysis and anomaly detection pipeline.[7d"""[9d[36mimport[39m(B[m sys[10d(B[0;1m[36mimport[39m(B[m argparse[11d(B[0;1m[36mimport[39m(B[m logging[12d(B[0;1m[36mimport[39m(B[m yaml[14d(B[0;1m[36mfrom[39m(B[m reporting.reporter (B[0;1m[36mimport[39m(B[m generate_report[15d(B[0;1m[36mfrom[39m(B[m ingestion.reader (B[0;1m[36mimport[39m(B[m read_log_file[16d(B[0;1m[36mfrom[39m(B[m parsing.auth_parser (B[0;1m[36mimport[39m(B[m parse_auth_log_line[17d(B[0;1m[36mfrom[39m(B[m events.event (B[0;1m[36mimport[39m(B[m classify_event[18d(B[0;1m[36mfrom[39m(B[m features.extractor (B[0;1m[36mimport[39m(B[m extract_features[19d(B[0;1m[36mfrom[39m(B[m detection.detector (B[0;1m[36mimport[39m(B[m detect_anomalies[22d(B[0;1m[36mdef[34m load_config[39m(B[m(config_path: str) -> dict:[23;5H(B[0;1m[32m"""[24d    Load YAML configuration file.[25d    """[26;5H[36mtry[39m(B[m:[27d(B[0;1m[36mwith[39m(B[m open(config_path, (B[0;1m[32m"r"[39m(B[m) (B[0;1m[36mas[39m(B[m f:[28;13H(B[0;1m[36mreturn[39m(B[m yaml.safe_load(f)[29;5H(B[0;1m[36mexcept[39m(B[m FileNotFoundError:[30;9Hprint(f(B[0;1m[32m"❌ Config file not found: {config_path}"[39m(B[m)[31;9Hsys.exit(1)[32;5H(B[0;1m[36mexcept[39m(B[m yaml.YAMLError (B[0;1m[36mas[39m(B[m e:[33;9Hprint(f(B[0;1m[32m"❌ Failed to parse config file: {e}"[39m(B[m)[34;9Hsys.exit(1)[37d(B[0;1m[36mdef[34m setup_logging[39m(B[m(log_level: str = (B[0;1m[32m"INFO"[39m(B[m):[38;5H(B[0;1m[32m"""[39d    Configure application-wide logging.[40d    """[2d[39m(B[m[?12l[?25h[?25l[?12l[?25h[3d[?25l[?12l[?25h[4d[?25l[?12l[?25h[5d[?25l[?12l[?25h[6d[?25l[?12l[?25h[7d[?25l[?12l[?25h[8d[?25l[?12l[?25h[9d[?25l[?12l[?25h[10d[?25l[?12l[?25h[11d[?25l[?12l[?25h[12d[?25l[?12l[?25h[13d[?25l[?12l[?25h[14d[?25l[?12l[?25h[15d[?25l[?12l[?25h[16d[?25l[?12l[?25h[17d[?25l[?12l[?25h[18d[?25l[?12l[?25h[19d[?25l[?12l[?25h[20d[?25l[?12l[?25h[21d[?25l[41d[K[?12l[?25h[22d[?25l[?12l[?25h[23d[?25l[?12l[?25h[24d[?25l[?12l[?25h[25d[?25l[?12l[?25h[26d[?25l[?12l[?25h[27d[?25l[?12l[?25h[28d[?25l[?12l[?25h[29d[?25l[?12l[?25h[30d[?25l[?12l[?25h[31d[?25l[?12l[?25h[32d[?25l[?12l[?25h[33d[?25l[?12l[?25h[34d[?25l[?12l[?25h[35d[?25l[?12l[?25h[36d[?25l[?12l[?25h[37d[?25l[?12l[?25h[38d[?25l[?12l[?25h[39d[?25l[?12l[?25h[40d[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hlogging.basicConfig([?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hlevel=getattr(logging, log_level.upper(), logging.INFO),[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hformat=(B[0;1m[32m"%(asctime)s | %(levelname)s | %(message)s"[39m(B[m,[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H(B[0;1m[36mdef[34m parse_arguments[39m(B[m() -> argparse.Namespace:[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H(B[0;1m[32m"""[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H(B[0;1m[32m    Parse command-line arguments.[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H(B[0;1m[32m    """[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hparser = argparse.ArgumentParser([?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hdescription=(B[0;1m[32m"Linux Log Analyser - Batch log analysis and anomaly de[39m(B[0;7m>[40;1H(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hparser.add_argument([?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9H(B[0;1m[32m"--config"[39m(B[m,[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hdefault=(B[0;1m[32m"config/config.yaml"[39m(B[m,[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hhelp=(B[0;1m[32m"Path to configuration file"[39m(B[m,[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hparser.add_argument([?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9H(B[0;1m[32m"--export"[39m(B[m,[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hhelp=(B[0;1m[32m"Export final anomaly report to CSV file"[39m(B[m,[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H(B[0;1m[36mreturn[39m(B[m parser.parse_args()[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H(B[0;1m[36mdef[34m main[39m(B[m() -> int:[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H(B[0;1m[32m"""[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H(B[0;1m[32m    Main entry point.[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H(B[0;1m[32m    """[39m(B[m    args = parse_arguments()[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;4H(B[0;1m[31m # Load configuration[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hconfig = load_config(args.config)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;4H(B[0;1m[31m # etup logging[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hsetup_logging(config.get((B[0;1m[32m"logging"[39m(B[m, {}).get((B[0;1m[32m"level"[39m(B[m, (B[0;1m[32m"INFO"[39m(B[m))[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hlogging.info((B[0;1m[32m"Linux Log Analyser started"[39m(B[m)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hlogging.info((B[0;1m[32m"Configuration loaded successfully"[39m(B[m)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hlog_path = config[(B[0;1m[32m"input"[39m(B[m][(B[0;1m[32m"log_path"[39m(B[m][?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H(B[0;1m[36mtry[39m(B[m:[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;8H(B[0;1m[31m # -------- Day 3: Parsing & Events --------[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hevents = [][?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9H(B[0;1m[36mfor[39m(B[m line (B[0;1m[36min[39m(B[m read_log_file(log_path):[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;13Hparsed = parse_auth_log_line(line)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;13H(B[0;1m[36mif[39m(B[m (B[0;1m[36mnot[39m(B[m parsed:[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;17H(B[0;1m[36mcontinue[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;13Hevent = classify_event(parsed)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;13Hevents.append(event)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hlogging.info(f(B[0;1m[32m"Parsed {len(events)} events"[39m(B[m)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;8H(B[0;1m[31m # -------- Day 4: Feature Extraction --------[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hwindow_minutes = config.get((B[0;1m[32m"processing"[39m(B[m, {}).get((B[0;1m[32m"time_window_minu[39m(B[0;7m>[40;1H(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hfeatures_df = extract_features(events, window_minutes=window_minute(B[0;7m>[40;1H(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9H(B[0;1m[36mif[39m(B[m features_df.empty:[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;13Hlogging.info((B[0;1m[32m"No features generated"[39m(B[m)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9H(B[0;1m[36melse[39m(B[m:[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;13Hlogging.info(f(B[0;1m[32m"Generated {len(features_df)} time windows"[39m(B[m)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;13Hlogging.info((B[0;1m[32m"(B[0m[38;5;148m\n(B[0;1m[32m"[39m(B[m + features_df.to_string(index=(B[0;1m[35mFalse[39m(B[m))[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;8H(B[0;1m[31m # -------- Day 5: Anomaly Detection --------[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hanomaly_df = detect_anomalies(features_df)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9H(B[0;1m[36mif[39m(B[m anomaly_df.empty:[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;13Hlogging.info((B[0;1m[32m"No anomaly analysis performed"[39m(B[m)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9H(B[0;1m[36melse[39m(B[m:[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;13Hanomaly_count = anomaly_df[(B[0;1m[32m"is_anomaly"[39m(B[m].sum()[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;13Hlogging.info(f(B[0;1m[32m"Detected {anomaly_count} anomalous windows"[39m(B[m)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;13Hlogging.info((B[0;1m[32m"(B[0m[38;5;148m\n(B[0;1m[32m"[39m(B[m + anomaly_df.to_string(index=(B[0;1m[35mFalse[39m(B[m))[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;8H(B[0;1m[31m # -------- Day 6: Reporting --------[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hreport = generate_report(anomaly_df)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hlogging.info((B[0;1m[32m"=== SECURITY REPORT ==="[39m(B[m)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hlogging.info(f(B[0;1m[32m"Total Time Windows: {report['total_windows']}"[39m(B[m)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hlogging.info(f(B[0;1m[32m"Anomalous Windows: {report['anomalous_windows']}"[39m(B[m)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hlogging.info(f(B[0;1m[32m"Highest Severity: {report['highest_severity']}"[39m(B[m)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H(B[0;1m[36mexcept[39m(B[m Exception (B[0;1m[36mas[39m(B[m e:[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hlogging.error(f(B[0;1m[32m"Pipeline failed: {e}"[39m(B[m)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9H(B[0;1m[36mreturn[39m(B[m 1[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hprint((B[0;1m[32m"Linux Log Analyser initialized successfully."[39m(B[m)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H(B[0;1m[36mreturn[39m(B[m 0[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H(B[0;1m[36mif[39m(B[m __name__ == (B[0;1m[32m"__main__"[39m(B[m:[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hsys.exit(main())[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[1;48H(B[0;7m*[75G(B[m[29;41r[29;1HM[1;43r[30;1H[?12l[?25h[?25l[29;41r[29;1H[4T[1;43r[30;8H(B[0;1m[31m # -------- Day 7: CSV Export --------[31;9H[36mif[39m(B[m args.export (B[0;1m[36mand[39m(B[m (B[0;1m[36mnot[39m(B[m anomaly_df.empty:[32;13Hanomaly_df.to_csv(args.export, index=(B[0;1m[35mFalse[39m(B[m)[33;13Hlogging.info(f(B[0;1m[32m"Report exported to {args.export}"[39m(B[m)[34d[?12l[?25h[?25l[42;16H    (B[0;7mM-D(B[m DOS Format     (B[0;7mM-A(B[m Append   [58G(B[0;7mM-B(B[m Backup File[43;2H(B[0;7mC(B[m Cancel[16G    (B[0;7mM-M(B[m Mac Format     (B[0;7mM-P(B[m Prepend        (B[0;7m^T(B[m Browse[K[41d(B[0;7mFile Name to Write [DOS Format]: analyser.py                                [41;45H(B[m[?12l[?25h[?25l[41;31H[1K (B[0;7m[ Writing... ](B[m[K[1;48H(B[0;7m [75G(B[m[41;29H(B[0;7m[ Wrote 144 lines ](B[m[42;16H(B[0;7m^O(B[m Write Out   (B[0;7m^W(B[m Where Is    (B[0;7m^K(B[m Cut[58G   (B[0;7m^T(B[m Execute[K[43;2H(B[0;7mX(B[m Exit  [16G(B[0;7m^R(B[m Read File   (B[0;7m^\(B[m Replace     (B[0;7m^U(B[m Paste       (B[0;7m^J(B[m Justify[?12l[?25h[34d[?25l[41d[J[43d[?12l[?25h[43;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;amarrr@DESKTOP-AI2F30G: /mnt/c/Users/Sahana/Desktop/linux-log-analyser[01;32mamarrr@DESKTOP-AI2F30G[00m:[01;34m/mnt/c/Users/Sahana/Desktop/linux-log-analyser[00m$ pytho n [K3 -m analyser
-[?2004lTraceback (most recent call last):
-  File "<frozen runpy>", line 189, in _run_module_as_main
-  File "<frozen runpy>", line 159, in _get_module_details
-  File "<frozen importlib._bootstrap_external>", line 1129, in get_code
-  File "<frozen importlib._bootstrap_external>", line 1059, in source_to_code
-  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
-  File "/mnt/c/Users/Sahana/Desktop/linux-log-analyser/analyser.py", line 74
-    """    args = parse_arguments()
-           ^^^^
-SyntaxError: invalid syntax
-[?2004h]0;amarrr@DESKTOP-AI2F30G: /mnt/c/Users/Sahana/Desktop/linux-log-analyser[01;32mamarrr@DESKTOP-AI2F30G[00m:[01;34m/mnt/c/Users/Sahana/Desktop/linux-log-analyser[00m$ nano  analyser/[K.py
-[?2004l[?2004h[?1049h[22;0;0t[1;43r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[41;32H(B[0;7m[ Reading... ](B[m[41;16H(B[0;7m[ Read 144 lines (Converted from DOS format) ](B[m[H(B[0;7m  GNU nano 7.2                     analyser.py                              [1;75H(B[m[42d(B[0;7m^G(B[m Help[42;16H(B[0;7m^O(B[m Write Out   (B[0;7m^W(B[m Where Is    (B[0;7m^K(B[m Cut[42;61H(B[0;7m^T(B[m Execute[43d(B[0;7m^X(B[m Exit[43;16H(B[0;7m^R(B[m Read File   (B[0;7m^\(B[m Replace     (B[0;7m^U(B[m Paste[61G(B[0;7m^J(B[m Justify[2d(B[0;1m[31m#!/usr/bin/env python3[3d[32m"""[4dLinux Log Analyser[5d------------------[6dEntry point for the Linux log analysis and anomaly detection pipeline.[7d"""[9d[36mimport[39m(B[m sys[10d(B[0;1m[36mimport[39m(B[m argparse[11d(B[0;1m[36mimport[39m(B[m logging[12d(B[0;1m[36mimport[39m(B[m yaml[14d(B[0;1m[36mfrom[39m(B[m reporting.reporter (B[0;1m[36mimport[39m(B[m generate_report[15d(B[0;1m[36mfrom[39m(B[m ingestion.reader (B[0;1m[36mimport[39m(B[m read_log_file[16d(B[0;1m[36mfrom[39m(B[m parsing.auth_parser (B[0;1m[36mimport[39m(B[m parse_auth_log_line[17d(B[0;1m[36mfrom[39m(B[m events.event (B[0;1m[36mimport[39m(B[m classify_event[18d(B[0;1m[36mfrom[39m(B[m features.extractor (B[0;1m[36mimport[39m(B[m extract_features[19d(B[0;1m[36mfrom[39m(B[m detection.detector (B[0;1m[36mimport[39m(B[m detect_anomalies[22d(B[0;1m[36mdef[34m load_config[39m(B[m(config_path: str) -> dict:[23;5H(B[0;1m[32m"""[24d    Load YAML configuration file.[25d    """[26;5H[36mtry[39m(B[m:[27d(B[0;1m[36mwith[39m(B[m open(config_path, (B[0;1m[32m"r"[39m(B[m) (B[0;1m[36mas[39m(B[m f:[28;13H(B[0;1m[36mreturn[39m(B[m yaml.safe_load(f)[29;5H(B[0;1m[36mexcept[39m(B[m FileNotFoundError:[30;9Hprint(f(B[0;1m[32m"❌ Config file not found: {config_path}"[39m(B[m)[31;9Hsys.exit(1)[32;5H(B[0;1m[36mexcept[39m(B[m yaml.YAMLError (B[0;1m[36mas[39m(B[m e:[33;9Hprint(f(B[0;1m[32m"❌ Failed to parse config file: {e}"[39m(B[m)[34;9Hsys.exit(1)[37d(B[0;1m[36mdef[34m setup_logging[39m(B[m(log_level: str = (B[0;1m[32m"INFO"[39m(B[m):[38;5H(B[0;1m[32m"""[39d    Configure application-wide logging.[40d    """[2d[39m(B[m[?12l[?25h[?25l[?12l[?25h[3d[?25l[?12l[?25h[4d[?25l[?12l[?25h[5d[?25l[?12l[?25h[6d[?25l[?12l[?25h[7d[?25l[?12l[?25h[8d[?25l[?12l[?25h[9d[?25l[?12l[?25h[10d[?25l[?12l[?25h[11d[?25l[?12l[?25h[12d[?25l[?12l[?25h[13d[?25l[?12l[?25h[14d[?25l[?12l[?25h[15d[?25l[?12l[?25h[16d[?25l[?12l[?25h[17d[?25l[?12l[?25h[18d[?25l[?12l[?25h[19d[?25l[?12l[?25h[20d[?25l[?12l[?25h[21d[?25l[41d[K[?12l[?25h[22d[?25l[?12l[?25h[23d[?25l[?12l[?25h[24d[?25l[?12l[?25h[25d[?25l[?12l[?25h[26d[?25l[?12l[?25h[27d[?25l[?12l[?25h[28d[?25l[?12l[?25h[29d[?25l[?12l[?25h[30d[?25l[?12l[?25h[31d[?25l[?12l[?25h[32d[?25l[?12l[?25h[33d[?25l[?12l[?25h[34d[?25l[?12l[?25h[35d[?25l[?12l[?25h[36d[?25l[?12l[?25h[37d[?25l[?12l[?25h[38d[?25l[?12l[?25h[39d[?25l[?12l[?25h[40d[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hlogging.basicConfig([?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hlevel=getattr(logging, log_level.upper(), logging.INFO),[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hformat=(B[0;1m[32m"%(asctime)s | %(levelname)s | %(message)s"[39m(B[m,[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H(B[0;1m[36mdef[34m parse_arguments[39m(B[m() -> argparse.Namespace:[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H(B[0;1m[32m"""[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H(B[0;1m[32m    Parse command-line arguments.[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H(B[0;1m[32m    """[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hparser = argparse.ArgumentParser([?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hdescription=(B[0;1m[32m"Linux Log Analyser - Batch log analysis and anomaly de[39m(B[0;7m>[40;1H(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hparser.add_argument([?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9H(B[0;1m[32m"--config"[39m(B[m,[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hdefault=(B[0;1m[32m"config/config.yaml"[39m(B[m,[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hhelp=(B[0;1m[32m"Path to configuration file"[39m(B[m,[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hparser.add_argument([?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9H(B[0;1m[32m"--export"[39m(B[m,[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hhelp=(B[0;1m[32m"Export final anomaly report to CSV file"[39m(B[m,[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H(B[0;1m[36mreturn[39m(B[m parser.parse_args()[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H(B[0;1m[36mdef[34m main[39m(B[m() -> int:[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H(B[0;1m[32m"""[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H(B[0;1m[32m    Main entry point.[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H(B[0;1m[32m    """[39m(B[m    args = parse_arguments()[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;4H(B[0;1m[31m # Load configuration[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hconfig = load_config(args.config)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;4H(B[0;1m[31m # etup logging[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hsetup_logging(config.get((B[0;1m[32m"logging"[39m(B[m, {}).get((B[0;1m[32m"level"[39m(B[m, (B[0;1m[32m"INFO"[39m(B[m))[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hlogging.info((B[0;1m[32m"Linux Log Analyser started"[39m(B[m)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hlogging.info((B[0;1m[32m"Configuration loaded successfully"[39m(B[m)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5Hlog_path = config[(B[0;1m[32m"input"[39m(B[m][(B[0;1m[32m"log_path"[39m(B[m][?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;5H(B[0;1m[36mtry[39m(B[m:[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;8H(B[0;1m[31m # -------- Day 3: Parsing & Events --------[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hevents = [][?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9H(B[0;1m[36mfor[39m(B[m line (B[0;1m[36min[39m(B[m read_log_file(log_path):[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;13Hparsed = parse_auth_log_line(line)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;13H(B[0;1m[36mif[39m(B[m (B[0;1m[36mnot[39m(B[m parsed:[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;17H(B[0;1m[36mcontinue[39m(B[m[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;13Hevent = classify_event(parsed)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;13Hevents.append(event)[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;1H[?25l[?12l[?25h7[2;41r8[41d
-[1;43r[40;9Hlogging.info(f(B[0;1m[32m"Parsed {len(events)} events"[39m(B[m)[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[C[?25l[?12l[?25h[C[?25l[?12l[?25h[C[?25l[?12l[?25h[C[?25l[?12l[?25h[C[?25l[?12l[?25h[C[?25l[?12l[?25h[C[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[1;48H(B[0;7m*[75G(B[m[15;40r[15;1HM[1;43r[15;1H(B[0;1m[32m    """(B[0m[42m    [16d[49m(B[m[11P[?12l[?25h[?25l[?12l[?25h args = parse_arguments() [?25l[?12l[?25h  args = parse_arguments()  [?25l[?12l[?25h   args = parse_arguments()   [?25l[?12l[?25h    args = parse_arguments()[5G[?25l7[16;41r8M[1;43r[16;1H[42m    [17d[49m(B[m[4P[?12l[?25h[?25l[?12l[?25h args = parse_arguments() [?25l[?12l[?25h  args = parse_arguments()  [?25l[?12l[?25h   args = parse_arguments()   [?25l[?12l[?25h    args = parse_arguments()[5G[?25l[42;16H    (B[0;7mM-D(B[m DOS Format     (B[0;7mM-A(B[m Append   [58G(B[0;7mM-B(B[m Backup File[43;2H(B[0;7mC(B[m Cancel[16G    (B[0;7mM-M(B[m Mac Format     (B[0;7mM-P(B[m Prepend        (B[0;7m^T(B[m Browse[K[41d(B[0;7mFile Name to Write [DOS Format]: analyser.py                                [41;45H(B[m[?12l[?25h[?25l[41;31H[1K (B[0;7m[ Writing... ](B[m[K[1;48H(B[0;7m [75G(B[m[41;29H(B[0;7m[ Wrote 146 lines ](B[m[42;16H(B[0;7m^O(B[m Write Out   (B[0;7m^W(B[m Where Is    (B[0;7m^K(B[m Cut[58G   (B[0;7m^T(B[m Execute[K[43;2H(B[0;7mX(B[m Exit  [16G(B[0;7m^R(B[m Read File   (B[0;7m^\(B[m Replace     (B[0;7m^U(B[m Paste       (B[0;7m^J(B[m Justify[?12l[?25h[17;5H[?25l[41d[J[43d[?12l[?25h[43;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;amarrr@DESKTOP-AI2F30G: /mnt/c/Users/Sahana/Desktop/linux-log-analyser[01;32mamarrr@DESKTOP-AI2F30G[00m:[01;34m/mnt/c/Users/Sahana/Desktop/linux-log-analyser[00m$ pytho n3 -m analyser
-[?2004lTraceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "/mnt/c/Users/Sahana/Desktop/linux-log-analyser/analyser.py", line 13, in <module>
-    from reporting.reporter import generate_report
-  File "/mnt/c/Users/Sahana/Desktop/linux-log-analyser/reporting/reporter.py", line 7, in <module>
-    import pandas as pd
-ModuleNotFoundError: No module named 'pandas'
-[?2004h]0;amarrr@DESKTOP-AI2F30G: /mnt/c/Users/Sahana/Desktop/linux-log-analyser[01;32mamarrr@DESKTOP-AI2F30G[00m:[01;34m/mnt/c/Users/Sahana/Desktop/linux-log-analyser[00m$ [7msourc[27m[7me[27m[7m venv/bin/activate[27m[A]0;amarrr@DESKTOP-AI2F30G: /mnt/c/Users/Sahana/Desktop/linux-log-analyser[01;32mamarrr@DESKTOP-AI2F30G[00m:[01;34m/mnt/c/Users/Sahana/Desktop/linux-log-analyser[00m$ source venv/bin/activate
-[?2004l[?2004h(venv) ]0;amarrr@DESKTOP-AI2F30G: /mnt/c/Users/Sahana/Desktop/linux-log-analyser[01;32mamarrr@DESKTOP-AI2F30G[00m:[01;34m/mnt/c/Users/Sahana/Desktop/linux-log-analyser[00m$ python3 -m analyser
-[?2004l2026-02-17 05:45:44,085 | INFO | Linux Log Analyser started
-2026-02-17 05:45:44,085 | INFO | Configuration loaded successfully
-2026-02-17 05:45:44,087 | INFO | Reading log file: sample_logs/auth.log
-2026-02-17 05:45:44,095 | INFO | Parsed 3 events
-2026-02-17 05:45:44,161 | INFO | Generated 1 time windows
-2026-02-17 05:45:44,179 | INFO | 
-       window_start  failed_login_count  unique_ip_count  unique_user_count
-2026-01-30 02:10:00                   2                2                  3
-2026-02-17 05:45:44,186 | INFO | Detected 0 anomalous windows
-2026-02-17 05:45:44,189 | INFO | 
-       window_start  failed_login_count  unique_ip_count  unique_user_count  high_failed_logins  high_unique_ips  zscore_failed  statistical_spike  is_anomaly
-2026-01-30 02:10:00                   2                2                  3               False            False              0              False       False
-2026-02-17 05:45:44,193 | INFO | === SECURITY REPORT ===
-2026-02-17 05:45:44,193 | INFO | Total Time Windows: 1
-2026-02-17 05:45:44,193 | INFO | Anomalous Windows: 0
-2026-02-17 05:45:44,193 | INFO | Highest Severity: NORMAL
-Linux Log Analyser initialized successfully.
-[?2004h(venv) ]0;amarrr@DESKTOP-AI2F30G: /mnt/c/Users/Sahana/Desktop/linux-log-analyser[01;32mamarrr@DESKTOP-AI2F30G[00m:[01;34m/mnt/c/Users/Sahana/Desktop/linux-log-analyser[00m$ [7mpython -m analyser --export report.csv[27m[C[Cpython -m analyser --export report.csv
-[?2004l2026-02-17 05:48:35,771 | INFO | Linux Log Analyser started
-2026-02-17 05:48:35,771 | INFO | Configuration loaded successfully
-2026-02-17 05:48:35,774 | INFO | Reading log file: sample_logs/auth.log
-2026-02-17 05:48:35,782 | INFO | Parsed 3 events
-2026-02-17 05:48:35,845 | INFO | Generated 1 time windows
-2026-02-17 05:48:35,862 | INFO | 
-       window_start  failed_login_count  unique_ip_count  unique_user_count
-2026-01-30 02:10:00                   2                2                  3
-2026-02-17 05:48:35,868 | INFO | Detected 0 anomalous windows
-2026-02-17 05:48:35,872 | INFO | 
-       window_start  failed_login_count  unique_ip_count  unique_user_count  high_failed_logins  high_unique_ips  zscore_failed  statistical_spike  is_anomaly
-2026-01-30 02:10:00                   2                2                  3               False            False              0              False       False
-2026-02-17 05:48:35,875 | INFO | === SECURITY REPORT ===
-2026-02-17 05:48:35,876 | INFO | Total Time Windows: 1
-2026-02-17 05:48:35,876 | INFO | Anomalous Windows: 0
-2026-02-17 05:48:35,877 | INFO | Highest Severity: NORMAL
-2026-02-17 05:48:35,923 | INFO | Report exported to report.csv
-Linux Log Analyser initialized successfully.
-[?2004h(venv) ]0;amarrr@DESKTOP-AI2F30G: /mnt/c/Users/Sahana/Desktop/linux-log-analyser[01;32mamarrr@DESKTOP-AI2F30G[00m:[01;34m/mnt/c/Users/Sahana/Desktop/linux-log-analyser[00m$ [7mls report.csv[27m[C[Cls report.csv
-[?2004l[0m[01;32mreport.csv[0m
-[?2004h(venv) ]0;amarrr@DESKTOP-AI2F30G: /mnt/c/Users/Sahana/Desktop/linux-log-analyser[01;32mamarrr@DESKTOP-AI2F30G[00m:[01;34m/mnt/c/Users/Sahana/Desktop/linux-log-analyser[00m$ [7mcat report.csv[27m[C[Ccat report.csv
-[?2004lwindow_start,failed_login_count,unique_ip_count,unique_user_count,high_failed_logins,high_unique_ips,zscore_failed,statistical_spike,is_anomaly
-2026-01-30 02:10:00,2,2,3,False,False,0,False,False
-[?2004h(venv) ]0;amarrr@DESKTOP-AI2F30G: /mnt/c/Users/Sahana/Desktop/linux-log-analyser[01;32mamarrr@DESKTOP-AI2F30G[00m:[01;34m/mnt/c/Users/Sahana/Desktop/linux-log-analyser[00m$ scrip[K[K[K[K[Kexit
-[?2004lexit
-
-Script done on 2026-02-17 05:52:50+00:00 [COMMAND_EXIT_CODE="0"]
