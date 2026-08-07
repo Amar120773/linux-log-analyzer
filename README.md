@@ -8,9 +8,9 @@ and detects abnormal patterns using **explainable statistical techniques**.
 The project is built as a **production-style scripting and automation tool**, focusing on
 clarity, scalability, and real-world system relevance.
 
----
 
-## Why This Project Exists
+
+## Use of the project
 
 Linux servers generate large volumes of logs related to authentication, system activity,
 and application behavior. Manual log inspection is time-consuming, error-prone, and does
@@ -27,7 +27,6 @@ This reflects how **real-world monitoring and internal tooling systems** are des
 
 ## High-Level Architecture
 
-```text
 Raw Linux Logs
       ↓
 Log Ingestion (streaming, memory-safe)
